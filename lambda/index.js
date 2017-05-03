@@ -37,6 +37,7 @@ if(typeof originalKey !== 'undefined' && originalKey !== "" && (!isNaN(height) |
         Body: buffer,
         Bucket: BUCKET,
         ContentType: 'image/png',
+        CacheControl: 'max-age=12312312',
         Key: key,
       }).promise()
     )
