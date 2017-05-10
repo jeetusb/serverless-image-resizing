@@ -50,7 +50,7 @@ if(typeof originalKey !== 'undefined' && originalKey !== "" && (!isNaN(height) |
     .catch(err => callback(err))
 
 }else{
-  // redirect to original key, if proper format is not passed.
+  // redirect to original image, if proper format is not passed.
   var fallbackURI = false;
     
     // exclude other characters after image extension (.jpg,.gif)
