@@ -49,6 +49,40 @@ if(typeof originalKey !== 'undefined' && originalKey !== "" && (!isNaN(height) |
     )
     .catch(err => callback(err))
 
+}else{
+  // redirect to original key, if proper format is not passed.
+  var fallbackURI = false;
+    
+    // exclude other characters after image extension (.jpg,.gif)
+    function getFallbackURI(originalKey,extension){
+        var fallbackURI = false;
+        var arr = originalKey.split(extension);
+        if(originalKey.split(extension).length > 1)
+        {
+            fallbackURI = arr[0]+extension;
+        }
+        return fallbackURI;
+    }
+    
+    var extensionArr = ['.jpg','.jpeg','.png','.gif'];
+    for(var i = 0, len = extensionArr.length; i < len; i++) {
+        fallbackURI = getFallbackURI(originalKey,extensionArr[i]);
+        if(fallbackURI !== false) {
+            break;
+        }
+    }
+
+    if(fallbackURI !== false) {
+         callback(null, {
+         statusCode: '301',
+         headers: {'location': `${URL}/${fallbackURI}`},
+         body: '',
+      })   
+    }else{
+        callback(null, {
+         body: 'Bad Request',
+      });
+    }
 } 
 
 }
